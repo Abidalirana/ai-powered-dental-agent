@@ -139,8 +139,8 @@ async def run_dental_agent(query: str) -> str:
 # Image Analysis Helper
 # -------------------
 async def analyze_dental_image(image_url: str, symptoms: str = "") -> str:
-    response = client.chat.completions.create(
-        model="gpt-4o",  # Vision model
+    response = await client.chat.completions.create(
+        model="gemini-2.0-flash",
         messages=[
             {"role": "system", "content": "You are a dental AI assistant. Analyze teeth images for possible issues."},
             {"role": "user", "content": [
@@ -149,7 +149,7 @@ async def analyze_dental_image(image_url: str, symptoms: str = "") -> str:
             ]}
         ]
     )
-    return response.choices[0].message["content"]
+    return response.choices[0].message.content
 
 # -------------------
 # Terminal test
